@@ -7,7 +7,7 @@ import org.hibernate.Hibernate
 @Table(name = "customers")
 data class Customer(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    val id: Long? = null,
 
     @Column(nullable = false)
     val firstName: String,
@@ -21,6 +21,9 @@ data class Customer(
     @Column(nullable = false, unique = true)
     val email: String,
 
+    @Column(nullable = false, unique = true)
+    val income: Double = 0.0,
+
     @Column(nullable = false)
     val password: String,
 
@@ -30,6 +33,15 @@ data class Customer(
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE, CascadeType.PERSIST], mappedBy = "customer")
     val credits: List<Credit> = mutableListOf()
 ) {
+    constructor(id: Long): this(
+        id = id,
+        firstName = "",
+        lastName = "",
+        cpf = "",
+        email = "",
+        password = "",
+        address = Address(zipCode = "", street = ""),
+    )
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
