@@ -22,6 +22,7 @@ import java.util.stream.Collectors
 @RestController
 @RequestMapping("/api/credits")
 class CreditRestController(private val service: CreditService) {
+
     @PostMapping
     fun save(@RequestBody creditDto: CreditDto): ResponseEntity<String> {
         val credit = service.save(creditDto.toEntity())
