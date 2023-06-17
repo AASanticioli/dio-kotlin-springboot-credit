@@ -10,7 +10,7 @@ import java.util.*
 
 @Repository
 interface CreditRepository : JpaRepository<Credit, Long> {
-    fun findByCreditCode(creditCode: UUID): Optional<Credit>
+    fun findByCode(code: UUID): Optional<Credit>
 
     @Query(value = "select c from Credit c where c.customer.id = :customerId")
     fun findAllByCustomerId(@Param("customerId") customerId: Long): List<Credit>
