@@ -1,7 +1,6 @@
 package me.dio.credit.entity
 
 import jakarta.persistence.*
-import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.UUID
 
@@ -12,13 +11,13 @@ data class Credit(
     val id: Long?,
 
     @Column(nullable = false, unique = true)
-    val creditCode: UUID = UUID.randomUUID(),
+    val code: UUID = UUID.randomUUID(),
 
     @Enumerated
     val status: CreditStatus,
 
     @Column(nullable = false)
-    val creditValue: BigDecimal = BigDecimal.ZERO,
+    val creditValue: Double = 0.0,
 
     @Column(nullable = false)
     val dayFirstOfInstallment: LocalDate,
@@ -29,6 +28,3 @@ data class Credit(
     @ManyToOne(optional = false)
     val customer: Customer
 )
-enum class CreditStatus {
-    IN_PROGRESS, APPROVED, REJECTED
-}
